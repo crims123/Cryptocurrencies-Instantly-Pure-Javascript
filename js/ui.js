@@ -7,8 +7,14 @@ class Ui {
     }
     createCoinsSelect () {
         const api = new apiRequest('fe1abedc9012216acd7eede0bb1163112f258da35b2fb9a99a52d63783401a53');
-        api.showAllCoins().then((response) => {
-            console.log(response)
+        api.showAllCoins().then((coins) => {
+            const select = document.querySelector('#criptomoneda');
+            coins.forEach((item) => {
+                const option = document.createElement('option');
+                option.innerHTML = item.CoinName;
+                option.value = `${item.Symbol}`;
+                select.appendChild(option)
+            })
         })
     }
     showMessage (message, className){
