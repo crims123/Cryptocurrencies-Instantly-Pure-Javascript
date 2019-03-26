@@ -41,10 +41,10 @@ class Ui {
         let templateHTML = `
             <div class="card bg-warning">
                 <div class="card-body text-light">
-                        <h2 class="card-title">Resultado:</h2>
-                        <p>El Precio de ${FROMSYMBOL} a moneda ${TOSYMBOL} es de: $ ${Math.round(PRICE)}</p>
-                        <p>MarketCap: $ ${Math.round(MKTCAP)}</p>
-                        <p>Última Actualización: ${update}</p>
+                        <h2 class="card-title">Result:</h2>
+                        <p>The price of one ${FROMSYMBOL} to ${TOSYMBOL} it is: $ ${Math.round(PRICE)}</p>
+                        <p>Market Capitalization: $ ${Math.round(MKTCAP)}</p>
+                        <p>Last Update: ${update}</p>
                 </div>
             </div>
             `;
