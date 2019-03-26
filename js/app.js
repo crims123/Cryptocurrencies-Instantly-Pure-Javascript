@@ -4,7 +4,6 @@ const currency = document.querySelector('#moneda');
 const cripto = document.querySelector('#criptomoneda');
 
 form.addEventListener('submit', handleForm);
-document.addEventListener
 
 function handleForm (e) {
     e.preventDefault();
@@ -12,6 +11,6 @@ function handleForm (e) {
         userInterface.showMessage('Complete All the Fields', 'alert bg-danger text-center')
     }
     else {
-        console.log('datos correctos')
+        userInterface.showConversion(currency.value, cripto.value);
     }
 }

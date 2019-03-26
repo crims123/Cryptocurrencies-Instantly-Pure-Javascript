@@ -2,9 +2,11 @@ class Ui {
     constructor () {
         this.init();
     }
+
     init () {
         this.createCoinsSelect();
     }
+
     createCoinsSelect () {
         const api = new apiRequest('fe1abedc9012216acd7eede0bb1163112f258da35b2fb9a99a52d63783401a53');
         api.showAllCoins().then((coins) => {
@@ -17,6 +19,7 @@ class Ui {
             })
         })
     }
+
     showMessage (message, className){
         const div = document.createElement('div');
         div.className = className;
@@ -26,6 +29,25 @@ class Ui {
         setTimeout(()=> {
             selectMessage.innerHTML = '';
         }, 1300)
-        clearTimeout();
+    }
+
+    showConversion (currency, crypto) {
+        const result = document.querySelector('#resultado');
+        const api = new apiRequest('fe1abedc9012216acd7eede0bb1163112f258da35b2fb9a99a52d63783401a53');
+        api.showCoinValue(currency, crypto).then((coin) => {
+            const { FROMSYMBOL, TOSYMBOL, PRICE, LASTUPDATE, MKTCAP } = coin;
+            let update = new Date(LASTUPDATE*1000).toLocaleDateString('es-COL')
+            let templateHTML = `
+               <div class="card bg-warning">
+                    <div class="card-body text-light">
+                         <h2 class="card-title">Resultado:</h2>
+                         <p>El Precio de ${FROMSYMBOL} a moneda ${TOSYMBOL} es de: $ ${Math.round(PRICE)}</p>
+                         <p>MarketCap: $ ${Math.round(MKTCAP)}</p>
+                         <p>Última Actualización: ${update}</p>
+                    </div>
+               </div>
+            `;
+            result.innerHTML = templateHTML;
+        })
     }
 }
