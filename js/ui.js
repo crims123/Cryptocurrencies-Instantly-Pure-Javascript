@@ -33,21 +33,31 @@ class Ui {
 
     showConversion (currency, crypto) {
         const result = document.querySelector('#resultado');
+        result.innerHTML = '';
         const api = new apiRequest('fe1abedc9012216acd7eede0bb1163112f258da35b2fb9a99a52d63783401a53');
         api.showCoinValue(currency, crypto).then((coin) => {
-            const { FROMSYMBOL, TOSYMBOL, PRICE, LASTUPDATE, MKTCAP } = coin;
-            let update = new Date(LASTUPDATE*1000).toLocaleDateString('es-COL')
-            let templateHTML = `
-               <div class="card bg-warning">
-                    <div class="card-body text-light">
-                         <h2 class="card-title">Resultado:</h2>
-                         <p>El Precio de ${FROMSYMBOL} a moneda ${TOSYMBOL} es de: $ ${Math.round(PRICE)}</p>
-                         <p>MarketCap: $ ${Math.round(MKTCAP)}</p>
-                         <p>Última Actualización: ${update}</p>
-                    </div>
-               </div>
+        const { FROMSYMBOL, TOSYMBOL, PRICE, LASTUPDATE, MKTCAP } = coin;
+        let update = new Date(LASTUPDATE*1000).toLocaleDateString('es-COL')
+        let templateHTML = `
+            <div class="card bg-warning">
+                <div class="card-body text-light">
+                        <h2 class="card-title">Resultado:</h2>
+                        <p>El Precio de ${FROMSYMBOL} a moneda ${TOSYMBOL} es de: $ ${Math.round(PRICE)}</p>
+                        <p>MarketCap: $ ${Math.round(MKTCAP)}</p>
+                        <p>Última Actualización: ${update}</p>
+                </div>
+            </div>
             `;
-            result.innerHTML = templateHTML;
+        this.showSpinner(result, templateHTML);
         })
+    }
+
+    showSpinner(result, templateHTML) {
+        const spinner = document.querySelector('.contenido-spinner');
+        spinner.style = 'display:block'
+        setTimeout(() => {
+            spinner.style = 'none'
+            result.innerHTML = templateHTML;
+        },2000)
     }
 }
